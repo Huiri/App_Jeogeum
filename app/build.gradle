@@ -44,7 +44,10 @@ dependencies {
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     // 파이어베이스
+       // 로그인
     implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+       // 디비
     implementation 'com.google.firebase:firebase-database:19.6.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.1'
     // 나중에 버전 관리용 platform ( bom ) 추가

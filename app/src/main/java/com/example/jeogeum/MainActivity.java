@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         // LIFO 구조
         db = FirebaseFirestore.getInstance();
+        /*
 
-        /* 추후에 함수화 시켜서 추가하겠음
-        // write
+        // Db Write
         Map<String, Object> user = new HashMap<>();
         user.put("first", "Byeng");
         user.put("last", "seon");
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // read
+        // Db Read
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
