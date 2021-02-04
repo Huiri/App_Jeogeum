@@ -19,7 +19,7 @@
      android:background="#58666666"
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="@+id/Title" />
+     app:layout_constraintTop_toTopOf="@+id/Title"/>
 
     <TextView
         android:id="@+id/Title"
@@ -28,10 +28,9 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textColor="@color/white"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:paddingTop="25dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/etId"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
          />
@@ -64,22 +63,23 @@
         android:hint="비밀번호"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:text="이메일로 로그인"
-        android:background="@drawable/bnt_login"
-        android:layout_width="200dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etPassWord"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-         />
+   <Button
+       android:id="@+id/btnLogin"
+       style="@style/FirebaseUI.Button"
+       android:textColor="@color/white"
+       app:backgroundTint="#330099"
+       android:layout_width="200dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dp"
+       android:text="이메일로 로그인"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/etPassWord" />
 
     <Button
         android:id="@+id/btnRegister"
         android:text="회원가입"
-        android:background="@drawable/bnt_login"
+        app:backgroundTint="#330099"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

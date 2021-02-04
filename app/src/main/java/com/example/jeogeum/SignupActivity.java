@@ -3,6 +3,7 @@ package com.example.jeogeum;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,10 +54,6 @@ public class SignupActivity extends AppCompatActivity {
                 String stNickname = etNickname.getText().toString();
 
                 // Email, Password 입력 여부 파악
-                if(stNickname.isEmpty()) {
-                    startToast("이름을 입력해주세요.");
-                    return;
-                }
                 if(stEmail.isEmpty()) {
                     startToast("이메일을 입력해주세요.");
                     return;
@@ -73,6 +70,10 @@ public class SignupActivity extends AppCompatActivity {
                     startToast("비밀번호가 일치하지 않습니다.");
                     return;
                 }
+                if(stNickname.isEmpty()) {
+                    startToast("이름을 입력해주세요.");
+                    return;
+                }
                 else {
                     //progress.setVisibility(View.VISIBLE);
                     // 회원가입 기능 구현
@@ -86,6 +87,10 @@ public class SignupActivity extends AppCompatActivity {
                                         Log.d(TAG, "createUserWithEmail:success");
                                         startToast("회원가입 성공");
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        // 다음 화면으로 전환
+                                        Intent in = new Intent(SignupActivity.this, MainActivity.class);
+                                        in.putExtra("email", stEmail);
+                                        startActivity(in);
                                     } else {
                                         // 실패
                                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
