@@ -12,29 +12,40 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jeogeum.ui.login.LoginActivity;
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    FirebaseDatabase database;
     EditText etId, etPassword, etPasswordCheck, etNickname;
-
-    List<AuthUI.IdpConfig> providers = Arrays.asList(
-            new AuthUI.IdpConfig.EmailBuilder().build(),
-            new AuthUI.IdpConfig.GoogleBuilder().build());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        // DB변수 선언
+        database = FirebaseDatabase.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         // 입력 된 아이디, 비밀번호
@@ -86,7 +97,40 @@ public class SignupActivity extends AppCompatActivity {
                                         // 성공
                                         Log.d(TAG, "createUserWithEmail:success");
                                         startToast("회원가입 성공");
-                                        FirebaseUser user = mAuth.getCurrentUser();
+
+
+                                        CollectionReference citiesRef = db.collection("user");
+
+                                        Query query = citiesRef.whereEqualTo("nickname", "dogdd");
+
+                                        Log.d(TAG, " aasd "+query.toString());
+
+
+                                        /*
+                                        // Db Write
+                                        Map<String, Object> user = new HashMap<>();
+                                        user.put("first", "Byeng");
+                                        user.put("last", "seon");
+                                        user.put("born", 1154);
+
+                                        // 문서 추가
+                                        db.collection("user")
+                                                .add(user)
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding document", e);
+                                                    }
+                                                });
+
+                                         */
+
                                         // 다음 화면으로 전환
                                         Intent in = new Intent(SignupActivity.this, MainActivity.class);
                                         in.putExtra("email", stEmail);

@@ -18,19 +18,38 @@ import com.example.jeogeum.R;
 import com.example.jeogeum.SignupActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
     EditText etId, etPassword;
+
+    FirebaseFirestore db;
+    FirebaseDatabase database;
+
 
     List<AuthUI.IdpConfig> providers = Arrays.asList(
             new AuthUI.IdpConfig.EmailBuilder().build(),
@@ -40,6 +59,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        database = FirebaseDatabase.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        String date = "20210131";
+
+        String addDay = null;
+        try {
+            addDay = AddDate(date, 0, 0, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(addDay);
+
+
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -80,6 +115,31 @@ public class LoginActivity extends AppCompatActivity {
                                     String stUserEmail = user.getEmail();
                                     String stUserName = user.getDisplayName();
                                     Log.d(TAG, "stUSerEmail: " + stUserEmail + ", stUserName: " + stUserName);
+
+
+                                    db.collection("user").whereEqualTo("nickname", "dogdd")
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    String temp = null;
+                                                    int i=0;
+                                                    for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
+                                                        String value = ds.get("email").toString();
+                                                        String[] result = value.split("\n");
+                                                        temp = result[i];
+                                                    }
+                                                    Log.d(TAG, " aasd "+temp);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                }
+                                            });
+
+
+
                                     // 다음 화면으로 전환
                                     Intent in = new Intent(LoginActivity.this, MainActivity.class);
                                     in.putExtra("email", stEmail);
@@ -111,5 +171,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startToast(String msg) {
         Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
+    }
+
+    private String AddDate(String strDate, int year, int month, int day) throws ParseException {
+        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+        Calendar cal = Calendar.getInstance();
+        Date dt = dtFormat.parse(strDate);
+        cal.setTime(dt); cal.add(Calendar.YEAR, year)
+        ; cal.add(Calendar.MONTH, month);
+        cal.add(Calendar.DATE, day);
+        return dtFormat.format(cal.getTime());
     }
 }
