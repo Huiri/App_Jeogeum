@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -65,85 +66,127 @@ public class SignupActivity extends AppCompatActivity {
                 String stNickname = etNickname.getText().toString();
 
                 // Email, Password 입력 여부 파악
-                if(stEmail.isEmpty()) {
-                    startToast("이메일을 입력해주세요.");
-                    return;
-                }
-                if(stPassword.isEmpty()) {
-                    startToast("비밀번호를 입력해주세요.");
-                    return;
-                }
-                if(stPasswordCheck.isEmpty()) {
-                    startToast("비밀번호 확인을 입력해주세요.");
-                    return;
-                }
-                if(!(stPassword.equals(stPasswordCheck))) {
-                    startToast("비밀번호가 일치하지 않습니다.");
-                    return;
-                }
-                if(stNickname.isEmpty()) {
-                    startToast("이름을 입력해주세요.");
-                    return;
-                }
-                else {
-                    //progress.setVisibility(View.VISIBLE);
-                    // 회원가입 기능 구현
-                    mAuth.createUserWithEmailAndPassword(stEmail, stPassword)
-                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    // progress.setVisibility(View.INVISIBLE);
-                                    if (task.isSuccessful()) {
-                                        // 성공
-                                        Log.d(TAG, "createUserWithEmail:success");
-                                        startToast("회원가입 성공");
 
+                Log.d(TAG, "Pass 00000000000");
+                Log.d(TAG, "Pass 111111111");
+                db.collection("user").whereEqualTo("nickname", stNickname)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            int temp=0;
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                Log.d(TAG, "Pass 222222222222");
+                                for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
+                                    Log.d(TAG, "Pass 3333333333");
+                                    String value = ds.get("email").toString();
+                                    String[] result = value.split("\n");
+                                    temp = result[0].length();
+                                    Log.d(TAG, ""+result[0]);
+                                }
+                                Log.d(TAG, " 44444444444"+temp);
+                                test(stEmail, stPassword, stPasswordCheck, stNickname);
+                            }
 
-                                        CollectionReference citiesRef = db.collection("user");
-
-                                        Query query = citiesRef.whereEqualTo("nickname", "dogdd");
-
-                                        Log.d(TAG, " aasd "+query.toString());
-
-
-                                        /*
-                                        // Db Write
-                                        Map<String, Object> user = new HashMap<>();
-                                        user.put("first", "Byeng");
-                                        user.put("last", "seon");
-                                        user.put("born", 1154);
-
-                                        // 문서 추가
-                                        db.collection("user")
-                                                .add(user)
-                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            private void test(String stEmail,String stPassword, String stPasswordCheck, String stNickname) {
+                                Log.d(TAG, "zzzzzzzzzzzzz" + temp);
+                                    if (stEmail.isEmpty()) {
+                                        startToast("이메일을 입력해주세요.");
+                                        return;
+                                    }
+                                    if (stPassword.isEmpty()) {
+                                        startToast("비밀번호를 입력해주세요.");
+                                        return;
+                                    }
+                                    if (stPasswordCheck.isEmpty()) {
+                                        startToast("비밀번호 확인을 입력해주세요.");
+                                        return;
+                                    }
+                                    if (!(stPassword.equals(stPasswordCheck))) {
+                                        startToast("비밀번호가 일치하지 않습니다.");
+                                        return;
+                                    }
+                                    if (stNickname.isEmpty()) {
+                                        startToast("이름을 입력해주세요.");
+                                        return;
+                                    }
+                                    if (temp != 0) {
+                                        startToast("사용중인 저자명입니다.");
+                                        return;
+                                    }
+                                    else {
+                                        // 회원가입 기능 구현
+                                        Log.d(TAG, "pass 55555555555");
+                                        mAuth.createUserWithEmailAndPassword(stEmail, stPassword)
+                                                .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                                     @Override
-                                                    public void onSuccess(DocumentReference documentReference) {
-                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error adding document", e);
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                                        // progress.setVisibility(View.INVISIBLE);
+                                                        if (task.isSuccessful()) {
+                                                            // 성공
+                                                            Log.d(TAG, "createUserWithEmail:success");
+                                                            startToast("회원가입 성공");
+
+                                                            // User DB속 Document 생성
+                                                            Map<String, Object> user = new HashMap<>();
+                                                            user.put("email", stEmail);
+                                                            user.put("nickname", stNickname);
+
+                                                            db.collection("user").document(stEmail)
+                                                                    .set(user)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            Log.d(TAG, "문서 생성 성공");
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Log.w(TAG, "문서 생성 에러", e);
+                                                                        }
+                                                                    });
+/*
+                                                            // Db Write
+                                                            Map<String, Object> user = new HashMap<>();
+                                                            user.put("first", "Byeng");
+                                                            user.put("last", "seon");
+                                                            user.put("born", 1154);
+
+                                                            // 문서 추가
+                                                            db.collection("user")
+                                                                    .add(user)
+                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                        @Override
+                                                                        public void onSuccess(DocumentReference documentReference) {
+                                                                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Log.w(TAG, "Error adding document", e);
+                                                                        }
+                                                                    }); */
+                                                            // 다음 화면으로 전환
+                                                            Intent in = new Intent(SignupActivity.this, LoginActivity.class);
+                                                            in.putExtra("email", stEmail);
+                                                            startActivity(in);
+                                                        } else {
+                                                            // 실패
+                                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                            startToast("회원가입 실패");
+                                                        }
+                                                        // ...
                                                     }
                                                 });
-
-                                         */
-
-                                        // 다음 화면으로 전환
-                                        Intent in = new Intent(SignupActivity.this, MainActivity.class);
-                                        in.putExtra("email", stEmail);
-                                        startActivity(in);
-                                    } else {
-                                        // 실패
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        startToast("회원가입 실패");
-                                    }
-                                    // ...
                                 }
-                            });
-                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
             }
         });
     }

@@ -63,19 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        String date = "20210131";
-
-        String addDay = null;
-        try {
-            addDay = AddDate(date, 0, 0, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(addDay);
-
-
-
-
+        
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // 입력 된 아이디, 비밀번호
@@ -116,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                                     String stUserName = user.getDisplayName();
                                     Log.d(TAG, "stUSerEmail: " + stUserEmail + ", stUserName: " + stUserName);
 
-
                                     db.collection("user").whereEqualTo("nickname", "dogdd")
                                             .get()
                                             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -137,9 +124,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 public void onFailure(@NonNull Exception e) {
                                                 }
                                             });
-
-
-
                                     // 다음 화면으로 전환
                                     Intent in = new Intent(LoginActivity.this, MainActivity.class);
                                     in.putExtra("email", stEmail);
@@ -168,18 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
-
     private void startToast(String msg) {
         Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
-    }
-
-    private String AddDate(String strDate, int year, int month, int day) throws ParseException {
-        SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
-        Calendar cal = Calendar.getInstance();
-        Date dt = dtFormat.parse(strDate);
-        cal.setTime(dt); cal.add(Calendar.YEAR, year)
-        ; cal.add(Calendar.MONTH, month);
-        cal.add(Calendar.DATE, day);
-        return dtFormat.format(cal.getTime());
     }
 }
