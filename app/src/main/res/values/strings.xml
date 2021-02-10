@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">jeogeum</string>
+    <string name="my_files">My Files</string>
+    <string name="shared">Shared</string>
+
+    <string name="openNavDrawer">Navigation Drawer Open</string>
+    <string name="closeNavDrawer">Navigation Drawer Close</string>
 </resources>
