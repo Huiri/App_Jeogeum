@@ -117,17 +117,19 @@ public class LoginActivity extends AppCompatActivity {
                                                         temp = result[i];
                                                     }
                                                     Log.d(TAG, " aasd "+temp);
+                                                    // 다음 화면으로 전환
+                                                    Intent in = new Intent(LoginActivity.this, MainActivity.class);
+                                                    in.putExtra("email", stEmail);
+                                                    startActivity(in);
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG,"Error : "+task.getException());
                                                 }
                                             });
-                                    // 다음 화면으로 전환
-                                    Intent in = new Intent(LoginActivity.this, MainActivity.class);
-                                    in.putExtra("email", stEmail);
-                                    startActivity(in);
+
                                 } else {
                                     // 실패
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
