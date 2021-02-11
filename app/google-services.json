@@ -1,9 +1,8 @@
 {
   "project_info": {
-    "project_number": "377937297670",
-    "firebase_url": "https://jeje-d34a8-default-rtdb.firebaseio.com",
-    "project_id": "jeje-d34a8",
-    "storage_bucket": "jeje-d34a8.appspot.com"
+    "project_number": "922349772483",
+    "project_id": "jeogeum-fa258",
+    "storage_bucket": "jeogeum-fa258.appspot.com"
   },
   "client": [
     {
@@ -37,7 +36,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:377937297670:android:506621d48183be858ede87",
+        "mobilesdk_app_id": "1:922349772483:android:f0d204c07d4d1d47354c76",
         "android_client_info": {
           "package_name": "com.example.jeogeum"
         }
@@ -102,20 +101,20 @@
       },
       "oauth_client": [
         {
-          "client_id": "377937297670-3bcl4sk8uh2n52mf5664g80e5aphf5s0.apps.googleusercontent.com",
+          "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBhkDrz1VxuHD21MOIsJGsQcAcQXU4Y4-E"
+          "current_key": "AIzaSyBtQ74lpWEGeXbPVaq0Cgz5UbP0pjC0Ax0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "377937297670-3bcl4sk8uh2n52mf5664g80e5aphf5s0.apps.googleusercontent.com",
+              "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
