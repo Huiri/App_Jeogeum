@@ -7,67 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:922349772483:android:cc478295c3dbb9b6354c76",
+        "mobilesdk_app_id": "1:922349772483:android:f0d204c07d4d1d47354c76",
         "android_client_info": {
           "package_name": "com.example.jeogeum"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBtQ74lpWEGeXbPVaq0Cgz5UbP0pjC0Ax0"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:922349772483:android:43f890e86784c4a4354c76",
-        "android_client_info": {
-          "package_name": "com.example.myapplication"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBtQ74lpWEGeXbPVaq0Cgz5UbP0pjC0Ax0"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "922349772483-jkjj0955po9jb96mvo02guclqircre4v.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:922349772483:android:06ce0e623e55a987354c76",
-        "android_client_info": {
-          "package_name": "com.example.myapplicationtest"
         }
       },
       "oauth_client": [
