@@ -66,35 +66,31 @@ public class SignupActivity extends AppCompatActivity {
                 String stNickname = etNickname.getText().toString();
 
                 // Email, Password 입력 여부 파악
-
-                Log.d(TAG, "Pass 00000000000");
-                Log.d(TAG, "Pass 111111111");
                 db.collection("user").whereEqualTo("nickname", stNickname)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             int temp=0;
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                Log.d(TAG, "Pass 222222222222");
                                 for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()) {
-                                    Log.d(TAG, "Pass 3333333333");
                                     String value = ds.get("email").toString();
                                     String[] result = value.split("\n");
                                     temp = result[0].length();
                                     Log.d(TAG, ""+result[0]);
                                 }
-                                Log.d(TAG, " 44444444444"+temp);
-                                test(stEmail, stPassword, stPasswordCheck, stNickname);
+                                user_input(stEmail, stPassword, stPasswordCheck, stNickname);
                             }
-
-                            private void test(String stEmail,String stPassword, String stPasswordCheck, String stNickname) {
-                                Log.d(TAG, "zzzzzzzzzzzzz" + temp);
+                            private void user_input(String stEmail,String stPassword, String stPasswordCheck, String stNickname) {
                                     if (stEmail.isEmpty()) {
                                         startToast("이메일을 입력해주세요.");
                                         return;
                                     }
                                     if (stPassword.isEmpty()) {
                                         startToast("비밀번호를 입력해주세요.");
+                                        return;
+                                    }
+                                    if (stPassword.length() < 6) {
+                                        startToast("비밀번호를 6자 이상 입력해주세요.");
                                         return;
                                     }
                                     if (stPasswordCheck.isEmpty()) {
