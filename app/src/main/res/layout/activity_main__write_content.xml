@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main_Writecontent"
+    android:background="@drawable/background_img"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/main_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="80dp"
+            android:text="로딩중"
+            android:layout_marginTop="120dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/main_sub_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:fontFamily="@font/songmyung_regular"/>
+
+        <TextView
+            android:id="@+id/main_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘 당신의 글은 어떤가요"
+            android:textSize="27sp"
+            android:textColor="#B5B5B5"
+            app:layout_constraintTop_toBottomOf="@+id/main_word"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/songmyung_regular"/>
+
+        <EditText
+            android:id="@+id/write_text"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:maxHeight="400dp"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:singleLine = "false"
+            android:scrollHorizontally = "false"
+            android:inputType="textMultiLine"
+            android:background="#20FFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/main_sub_title"
+            android:layout_marginTop="20dp"
+            android:maxLength="400"
+            app:autoSizeTextType="uniform"/>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="혼자 간직할래요"
+            android:textColor="#C6C5C5"
+            app:layout_constraintTop_toBottomOf="@+id/write_text"
+            android:textSize="18sp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/songmyung_regular"/>
+
+
+        <Button
+            android:id="@+id/main_complete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#AB21253C"
+            android:text="완료"
+            android:textSize="15dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox"/>
+
+        <Button
+            android:id="@+id/listup"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="목록확인"
+            android:layout_marginTop="30dp"
+            android:background="#80292D45"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:id="@+id/update"
+            app:layout_constraintRight_toLeftOf="@+id/listup"
+            android:layout_marginTop="20dp"
+            android:background="#00FFFFFF"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:progressTint="#505050"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</ScrollView>
