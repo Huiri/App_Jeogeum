@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jeogeum.MainActivity;
+import com.example.jeogeum.Main_WriteContent;
 import com.example.jeogeum.R;
 import com.example.jeogeum.SignupActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -67,12 +67,12 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // 입력 된 아이디, 비밀번호
-        etId = (EditText)findViewById(R.id.etId);
-        etPassword = (EditText)findViewById(R.id.etPassWord);
+        etId = findViewById(R.id.etId);
+        etPassword = findViewById(R.id.etPassWord);
         // 로딩
         //progress = (ProgressBar)findViewById(R.id.progress);
         // 로그인 버튼
-        Button btnLogin = (Button)findViewById(R.id.btnLogin);
+        Button btnLogin = findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     }
                                                     Log.d(TAG, " aasd "+temp);
                                                     // 다음 화면으로 전환
-                                                    Intent in = new Intent(LoginActivity.this, MainActivity.class);
+                                                    Intent in = new Intent(LoginActivity.this, Main_WriteContent.class);
                                                     in.putExtra("email", stEmail);
                                                     startActivity(in);
                                                 }
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        Button btnRegister = (Button)findViewById(R.id.btnRegister);
+        Button btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
