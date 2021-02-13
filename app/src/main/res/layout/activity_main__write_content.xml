@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main_Writecontent"
-    android:background="@drawable/background_img"
+    tools:context=".Main_WriteContent"
+    android:background="@drawable/night"
     android:orientation="vertical">
 
     <LinearLayout
@@ -53,7 +53,7 @@
             android:singleLine = "false"
             android:scrollHorizontally = "false"
             android:inputType="textMultiLine"
-            android:background="#20FFFFFF"
+            android:background="#58666666"
             app:layout_constraintTop_toBottomOf="@+id/main_sub_title"
             android:layout_marginTop="20dp"
             android:maxLength="400"
