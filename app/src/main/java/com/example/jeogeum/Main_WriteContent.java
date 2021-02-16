@@ -1,11 +1,16 @@
 package com.example.jeogeum;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main_WriteContent extends AppCompatActivity {
+public class Main_WriteContent extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FirebaseFirestore db;
 
@@ -47,7 +53,7 @@ public class Main_WriteContent extends AppCompatActivity {
 
     TextView main_word;
 
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
     private static final String TAG = "Main_Writecontent";
 
     public static int count= 0;
@@ -61,7 +67,7 @@ public class Main_WriteContent extends AppCompatActivity {
 
         id = getIntent().getStringExtra("email");
         db = FirebaseFirestore.getInstance();
-        progressBar = findViewById(R.id.progress);
+        //progressBar = findViewById(R.id.progress);
 
         main_word = findViewById(R.id.main_word);
         //settingWord();
@@ -72,7 +78,7 @@ public class Main_WriteContent extends AppCompatActivity {
         main_complete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
                 saveText(v);
             }
         });
@@ -87,13 +93,65 @@ public class Main_WriteContent extends AppCompatActivity {
             }
         });*/
 
-        Button update = findViewById(R.id.update);
+        /*Button update = findViewById(R.id.update);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateword();
             }
-        });
+        });*/
+        navbar();
+
+    }
+    public void navbar(){
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.openNavDrawer,
+                R.string.closeNavDrawer
+        );
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.write) {
+            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Main_WriteContent.this, Main_WriteContent.class);
+            startActivity(intent);
+        } else if (id == R.id.my) {
+            Toast.makeText(this, "두번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
+            //startActivity(intent);
+
+        } else if (id == R.id.your) {
+            Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
+            //startActivity(intent);
+        } else if (id == R.id.words) {
+            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 
@@ -103,7 +161,7 @@ public class Main_WriteContent extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
 
         if (text.isEmpty()) {
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
             Toast.makeText(Main_WriteContent.this, "공백 X", Toast.LENGTH_SHORT).show();
         } else {
             Map<String, Object> post = new HashMap<>();
@@ -118,7 +176,7 @@ public class Main_WriteContent extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
                             Toast.makeText(Main_WriteContent.this, "저장 완료", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                             Intent intent = new Intent(Main_WriteContent.this, Showtext.class);
@@ -208,8 +266,7 @@ public class Main_WriteContent extends AppCompatActivity {
         });
 
         //사용한 글감 used => true로 바꾸기
-        WordRef
-                .update(Used_KEY, true)
+        WordRef.update(Used_KEY, true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
