@@ -48,7 +48,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
     EditText write_text;
     CheckBox checkBox;
-    String id;
+    String email;
     String word;
 
     TextView main_word;
@@ -65,13 +65,14 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__write_content);
 
-        id = getIntent().getStringExtra("email");
+        email = getIntent().getStringExtra("email");
         db = FirebaseFirestore.getInstance();
         //progressBar = findViewById(R.id.progress);
 
         main_word = findViewById(R.id.main_word);
         //settingWord();
 
+        //기기에 설정된 날짜에 따라 나오는 값이 달라짐
         checkwordused();
 
         Button main_complete_btn = findViewById(R.id.main_complete_btn);
@@ -101,7 +102,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
         });*/
         navbar();
-
+        set_nick();
     }
     public void navbar(){
         Toolbar toolbar = findViewById(R.id.main_toolbar);
@@ -122,19 +123,46 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    public void set_nick(){
+
+        TextView user = (TextView)findViewById(R.id.user);
+        DocumentReference UserRef = db.collection("user").document(email);
+
+        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    String nick = documentSnapshot.getString("nickname");
+                    user.setText(nick + " 님");
+                }
+            }
+        });
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         int id = item.getItemId();
+
+        /*TextView user = (TextView)findViewById(R.id.user);
+        DocumentReference UserRef = db.collection("user").document(email);
+
+        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    String nick = documentSnapshot.getString("nickname");
+                    user.setText(nick + " 님");
+                }
+            }
+        });*/
 
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Main_WriteContent.this, Main_WriteContent.class);
-            startActivity(intent);
         } else if (id == R.id.my) {
             Toast.makeText(this, "두번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
             //startActivity(intent);
-
         } else if (id == R.id.your) {
             Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
@@ -152,7 +180,17 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+    }
 
+    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void saveText(View view) {
@@ -167,7 +205,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Map<String, Object> post = new HashMap<>();
             post.put(Text_KEY, text);
             post.put(Lock_KEY, checkcheckbox());
-            post.put(Id_KEY, id);
+            post.put(Id_KEY, email);
             post.put(Date_KEY, currentTime);
             post.put(Word_KEY, word);
 

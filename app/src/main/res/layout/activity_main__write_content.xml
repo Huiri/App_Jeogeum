@@ -147,6 +147,8 @@
         android:layout_gravity="start"
         android:background="#25325C"
         app:headerLayout="@layout/nav_header_layout"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu"
+        app:itemTextAppearance="@style/text_theme"
+        app:itemTextColor="@color/white"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
