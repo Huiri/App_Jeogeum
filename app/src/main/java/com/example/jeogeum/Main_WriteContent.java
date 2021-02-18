@@ -86,23 +86,6 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
         });
 
-
-        /*Button listup = (Button) findViewById(R.id.listup);
-        listup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Main_WriteContent.this, Show_word_list.class);
-                startActivity(intent);
-            }
-        });*/
-
-        /*Button update = findViewById(R.id.update);
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateword();
-            }
-        });*/
         navbar();
         set_nick();
     }
@@ -127,6 +110,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     }
 
     public void set_nick(){
+
+        TextView user = (TextView)findViewById(R.id.user);
         DocumentReference UserRef = db.collection("user").document(email);
 
         UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -138,67 +123,15 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                 TextView user = (TextView)findViewById(R.id.user);
                 if (documentSnapshot.exists()) {
                     String nick = documentSnapshot.getString("nickname");
-
                     user.setText(nick + " 님");
-
-                    Toast.makeText(Main_WriteContent.this, user.getText(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    /*public void set_nick(){
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View header = inflater.inflate(R.layout.nav_header_layout, null);
-
-        //View header = getLayoutInflater().inflate(R.layout.nav_header_layout, null, false);
-
-        TextView user = (TextView)findViewById(R.id.user);
-        DocumentReference UserRef = db.collection("user").document(email);
-
-        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String nick = documentSnapshot.getString("nickname");
-                    Toast.makeText(Main_WriteContent.this, nick, Toast.LENGTH_SHORT).show();
-                    user.setText(nick + " 님");
-                }
-            }
-        });
-    }*/
-    /*public void set_nick(){
-
-        TextView user = (TextView)findViewById(R.id.user);
-        DocumentReference UserRef = db.collection("user").document(email);
-
-        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String nick = documentSnapshot.getString("nickname");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    user.setText(nick + " 님");
-                }
-            }
-        });
-    }*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
-        /*TextView user = (TextView)findViewById(R.id.user);
-        DocumentReference UserRef = db.collection("user").document(email);
-
-        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String nick = documentSnapshot.getString("nickname");
-                    user.setText(nick + " 님");
-                }
-            }
-        });*/
 
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
@@ -215,7 +148,26 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
         }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        int id = item.getItemId();
+
+        if (id == R.id.write) {
+            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.my) {
+            Toast.makeText(this, "두번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
+            //startActivity(intent);
+        } else if (id == R.id.your) {
+            Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
+            //startActivity(intent);
+        } else if (id == R.id.words) {
+            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -379,17 +331,4 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         return date;
     }
 
-    /*public void settingWord(){
-        String date = today.format(new Date());
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("word").document(date);
-        mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    word = documentSnapshot.getString(Word_KEY);
-                    main_word.setText(word);
-                }
-            }
-        });
-    }*/
 }
