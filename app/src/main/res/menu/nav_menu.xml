@@ -11,7 +11,6 @@
             <item android:title="글감"
                 android:id = "@+id/words" />
     </group>
-
     <item android:title="">
         <menu>
             <item android:title="알림 off"

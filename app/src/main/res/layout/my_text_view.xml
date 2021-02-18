@@ -70,7 +70,6 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

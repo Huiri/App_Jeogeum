@@ -127,7 +127,6 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     }
 
     public void set_nick(){
-
         DocumentReference UserRef = db.collection("user").document(email);
 
         UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

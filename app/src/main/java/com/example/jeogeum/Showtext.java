@@ -37,7 +37,6 @@ public class Showtext extends AppCompatActivity {
     public static final String NICK_KEY = "nick";
     public static final String Text_KEY = "text";
     public static final String ID_KEY = "id";
-
     private final DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("post").document();
 
     @Override
