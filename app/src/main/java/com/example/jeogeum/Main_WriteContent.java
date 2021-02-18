@@ -111,7 +111,6 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
     public void set_nick(){
 
-        TextView user = (TextView)findViewById(R.id.user);
         DocumentReference UserRef = db.collection("user").document(email);
 
         UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -128,26 +127,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
         });
     }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        int id = item.getItemId();
-
-        if (id == R.id.write) {
-            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.my) {
-            Toast.makeText(this, "두번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
-            //startActivity(intent);
-        } else if (id == R.id.your) {
-            Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
-            //startActivity(intent);
-        } else if (id == R.id.words) {
-            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
-        }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

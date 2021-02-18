@@ -12,16 +12,6 @@
                 android:id = "@+id/words" />
     </group>
     <item android:title="">
-        <group android:checkableBehavior="single">
-        <item android:title="글 작성"
-            android:id = "@+id/write" />
-        <item android:title="나의 글"
-            android:id = "@+id/my" />
-        <item android:title="너의 글"
-            android:id = "@+id/your" />
-        <item android:title="글감"
-            android:id = "@+id/words" />
-    </group>
         <menu>
             <item android:title="알림 off"
                 android:id = "@+id/alarm"/>
