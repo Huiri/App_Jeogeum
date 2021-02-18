@@ -136,9 +136,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.my) {
-            Toast.makeText(this, "두번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
-            //startActivity(intent);
+            Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.your) {
             Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
