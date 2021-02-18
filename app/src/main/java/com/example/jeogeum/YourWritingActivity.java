@@ -18,16 +18,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class MyWritingActivity extends AppCompatActivity {
+public class YourWritingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
     private static final String TAG = "ShowMyList";
+    private boolean Lock = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_writing);
+        setContentView(R.layout.activity_your_writing);
 
         Button close_btn = (Button) findViewById(R.id.close_btn);
         close_btn.setOnClickListener(new View.OnClickListener() {
@@ -40,12 +41,10 @@ public class MyWritingActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 사용자 이메일 확인
-        String id = getIntent().getStringExtra("email");
-        // 특정 id 속 post 출력
+        // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
-                .whereEqualTo("id", id)
+                .whereEqualTo("lock", Lock)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

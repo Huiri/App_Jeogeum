@@ -139,9 +139,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
             startActivity(intent);
         } else if (id == R.id.your) {
-            Toast.makeText(this, "세번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowMyText.class);
-            //startActivity(intent);
+            Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.words) {
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
