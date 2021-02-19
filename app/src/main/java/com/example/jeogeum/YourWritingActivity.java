@@ -54,7 +54,7 @@ public class YourWritingActivity extends AppCompatActivity {
                             ArrayList<String> array1 = new ArrayList();
                             ArrayList<String> array2 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
-                            // 들어갈 데이터가 글감, 내용 이므로 이렇게 만들어봄.   알고리즘 열심히 공부합시다. 난 몰라
+                            // 들어갈 데이터가 글감
                             String[][] myDataset;
                             String[] check = {"word", "text"};
                             int num = task.getResult().size();
