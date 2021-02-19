@@ -132,11 +132,11 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.my) {
             Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
+            intent.putExtra("email", email);
             startActivity(intent);
         } else if (id == R.id.your) {
             Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
@@ -145,7 +145,14 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
+        } else if (id == R.id.alarm) {
+            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.setting) {
+            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -191,7 +198,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                             Toast.makeText(Main_WriteContent.this, "저장 완료", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                             Intent intent = new Intent(Main_WriteContent.this, Showtext.class);
-                            intent.putExtra("write_text", write_text.getText().toString());
+                            intent.putExtra("text", write_text.getText().toString());
                             write_text.setText("");
                             startActivity(intent);
                         }

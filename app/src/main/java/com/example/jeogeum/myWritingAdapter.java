@@ -1,13 +1,17 @@
 package com.example.jeogeum;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyViewHolder> {
+    private Object mContext = null;
     private String[][] mDataset;
 
     //private ArrayList<WordData> mDataset;
@@ -16,6 +20,7 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
 
     public myWritingAdapter(String[][] myDataset) {
         mDataset = myDataset;
+        mContext = mContext;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -46,6 +51,26 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
         // - replace the contents of the view with that element
         holder.textView_title.setText(mDataset[0][position]);
         holder.textView_content.setText(mDataset[1][position]);
+
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = holder.textView_title.getText().toString();
+                Toast.makeText(v.getContext(), title, Toast.LENGTH_SHORT).show();
+                String content = holder.textView_content.getText().toString();
+
+                Context context = v.getContext();
+
+                Intent intent = new Intent(v.getContext(), Showtext.class);
+//                Intent intent = new Intent((Context) context, Showtext.class);
+                intent.putExtra("text", content);
+                intent.putExtra("word",title);
+                context.startActivity(intent);
+//                ((MyWritingActivity)context).startActivity(intent);
+
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
