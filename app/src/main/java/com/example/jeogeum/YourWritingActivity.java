@@ -70,7 +70,7 @@ public class YourWritingActivity extends AppCompatActivity {
                                 }
                             }
                             // 배열 List크기 만큼 선언 후 값 넣기
-                            myDataset = new String[3][array1.size()];
+                            myDataset = new String[4][array1.size()];
                             int size = 0;
                             for (String temp : array1) {
                                 myDataset[0][size++] = temp;
@@ -79,6 +79,7 @@ public class YourWritingActivity extends AppCompatActivity {
                             for (String temp : array2) {
                                 myDataset[1][size++] = temp;
                             }
+                            myDataset[2][0] = "false";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(mAdapter);

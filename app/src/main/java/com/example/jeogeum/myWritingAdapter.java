@@ -61,8 +61,12 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
                 String content = holder.textView_content.getText().toString();
 
                 Context context = v.getContext();
-
-                Intent intent = new Intent(v.getContext(), Showtext.class);
+                Intent intent;
+                if(mDataset[2][0] == "true") {
+                    intent = new Intent(v.getContext(), MyDetailActivity.class);
+                }
+                else
+                    intent = new Intent(v.getContext(), YourDetailActivity.class);
 //                Intent intent = new Intent((Context) context, Showtext.class);
                 intent.putExtra("text", content);
                 intent.putExtra("word",title);
