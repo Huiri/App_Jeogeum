@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyViewHolder> {
     private String[][] mDataset;
 
@@ -17,6 +19,8 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
     public myWritingAdapter(String[][] myDataset) {
         mDataset = myDataset;
     }
+
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView textView_title;
