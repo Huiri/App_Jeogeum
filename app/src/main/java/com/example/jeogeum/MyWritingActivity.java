@@ -1,24 +1,32 @@
 package com.example.jeogeum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class MyWritingActivity extends AppCompatActivity {
+public class MyWritingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -28,6 +36,8 @@ public class MyWritingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_writing);
+
+
 
         Button close_btn = (Button) findViewById(R.id.close_btn);
         close_btn.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +99,83 @@ public class MyWritingActivity extends AppCompatActivity {
                         }
                     }
                 });
-
+        navbar();
     }
+    public void navbar(){
+        Toolbar toolbar = findViewById(R.id.writing_toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.openNavDrawer,
+                R.string.closeNavDrawer
+        );
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        String email = getIntent().getStringExtra("email");
+        // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
+        String previous = getIntent().getStringExtra("previous");
+        String now = "my";
+        if (id == R.id.write) {
+            if("main".equals(previous)) {
+                Log.d(TAG,"Finish Success main");
+                finish();
+            }
+            else {
+                Intent intent = new Intent(MyWritingActivity.this, Main_WriteContent.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
+        } else if (id == R.id.my) {
+            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.your) {
+            if("your".equals(previous)) {
+                finish();
+            }
+            else {
+                Intent intent = new Intent(MyWritingActivity.this, YourWritingActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
+        } else if (id == R.id.words) {
+            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        } else if (id == R.id.alarm) {
+            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.setting) {
+            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }
