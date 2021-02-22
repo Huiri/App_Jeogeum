@@ -44,8 +44,6 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
                         intent.putExtra("searchText",searchText.get(pos));
 
                         v.getContext().startActivity(intent);
-
-                        Toast.makeText(v.getContext(), pos +"번째 아이템 클릭", Toast.LENGTH_LONG).show();
                     }
                 }
             });

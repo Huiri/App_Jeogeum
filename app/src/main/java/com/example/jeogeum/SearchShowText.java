@@ -11,27 +11,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class SearchShowText extends AppCompatActivity {
+public class SearchShowText extends AppCompatActivity  {
 
     TextView show;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_text);
+        setContentView(R.layout.activity_searchtextshow);
         Intent intent = getIntent();
 
         String text = intent.getExtras().getString("searchText");
 
-        Button close_btn = findViewById(R.id.close_button);
+        Button close_btn = (Button) findViewById(R.id.close_button);
+
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        show.setMovementMethod(new ScrollingMovementMethod());
-        show = findViewById(R.id.show);
+
+        //show.setMovementMethod(new ScrollingMovementMethod());
+        show = findViewById(R.id.showtext);
         show.setText(text);
     }
+
 
 }

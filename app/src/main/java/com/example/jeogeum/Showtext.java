@@ -56,7 +56,7 @@ public class Showtext extends AppCompatActivity {
             }
         });
 
-        show.setMovementMethod(new ScrollingMovementMethod());
+        //show.setMovementMethod(new ScrollingMovementMethod());
         show = findViewById(R.id.show);
         show.setText(text);
 
