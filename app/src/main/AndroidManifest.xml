@@ -14,6 +14,7 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".MyWritingActivity" />
         <activity android:name=".SearchText"/>
+        <activity android:name=".SearchShowText"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login">

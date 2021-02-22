@@ -2,10 +2,14 @@ package com.example.jeogeum;
 
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
 
     ArrayList<String> searchText;
     String instring;
+
 
     searchtextadaper(ArrayList<String> searchText, String instring) {
         this.searchText = searchText;
@@ -25,8 +30,26 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
         public TextView textView;
         public TextView textView2;
 
+
         public ViewHolder(View view){
             super(view);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        Intent intent = new Intent(v.getContext(), SearchShowText.class);
+
+                        intent.putExtra("searchText",searchText.get(pos));
+
+                        v.getContext().startActivity(intent);
+
+                        Toast.makeText(v.getContext(), pos +"번째 아이템 클릭", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
             this.textView = view.findViewById(R.id.title1);
             this.textView2 = view.findViewById(R.id.sub1);
         }

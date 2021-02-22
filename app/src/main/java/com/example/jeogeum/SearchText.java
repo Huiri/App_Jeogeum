@@ -29,7 +29,6 @@ public class SearchText extends AppCompatActivity {
 
     ArrayList<String> searchText = new ArrayList<>();
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
