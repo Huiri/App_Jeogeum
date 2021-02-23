@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="개인정보 변경">
+        <EditTextPreference
+            android:key="change_nick"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:title="필명 변경하기"/>
+
+        <EditTextPreference
+            android:key="change_password"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:title="비밀번호 변경하기"/>
+
+        <SwitchPreference
+            android:key="alarm"
+            android:title="알림"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="계정 관리">
+
+    <Preference
+            android:key="logout"
+            android:title="로그아웃">
+        </Preference>
+
+        <Preference
+            android:key="byebye"
+            android:title="계정 탈퇴">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.naver.com"/>
+        </Preference>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="더 나은 '적음'을 위해">
+
+        <Preference
+            android:summary="버그 및 개선할 사항을 개발자에게 알려주세요"
+            android:title="메일 보내기" >
+            <intent
+                android:action="android.intent.action.SENDTO"
+                android:data="mailto:20191524@daejin.ac.kr" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

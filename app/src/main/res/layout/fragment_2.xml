@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/night">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="적음"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/hi_text"
+        android:textColor="@color/white"
+        android:textSize="90sp"
+        android:fontFamily="@font/songmyung_regular"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:id="@+id/hi_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="적음 소개말"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintBottom_toTopOf="@+id/sub_text"
+        android:textSize="30sp"
+        android:fontFamily="@font/songmyung_regular"
+        android:textColor="#CFCECE"/>
+
+    <TextView
+        android:id="@+id/sub_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="'적음'이 당신을 기다립니다"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hi_text"
+        app:layout_constraintBottom_toTopOf="@+id/view_place"
+        android:textSize="25sp"
+        android:fontFamily="@font/songmyung_regular"
+        android:textColor="#ACABAB"/>
+
+    <View
+        android:id="@+id/view_place"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:background="#27FFFFFF"
+        android:layout_marginTop="90dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_text"/>
+
+    <TextView
+        android:id="@+id/intro_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal"
+        android:text="'적음'은"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/sub_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/push_time"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+    />
+
+    <View
+        android:id="@+id/linear1"
+        android:layout_width="200dp"
+        android:layout_height="2dp"
+        android:layout_centerInParent="true"
+        android:background="#59FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/intro_text1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/push_time"/>
+
+
+    <TextView
+        android:id="@+id/push_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오후 7시"
+        android:layout_marginTop="20dp"
+        android:textSize="50sp"
+        app:layout_constraintTop_toBottomOf="@+id/linear1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linear2"
+        android:fontFamily="@font/songmyung_regular"
+        android:textColor="@color/white"/>
+
+    <View
+        android:id="@+id/linear2"
+        android:layout_width="200dp"
+        android:layout_height="2dp"
+        android:layout_centerInParent="true"
+        android:background="#59FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/push_time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/intro_text2"/>
+
+    <TextView
+        android:id="@+id/intro_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="에 알람을 보낼게요"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/linear2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

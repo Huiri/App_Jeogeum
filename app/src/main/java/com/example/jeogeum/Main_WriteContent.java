@@ -1,12 +1,5 @@
 package com.example.jeogeum;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,14 +45,12 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     public static final String Word_KEY = "word";
     public static final String Used_KEY= "used";
 
-    String date;
-
+    String date, word, email, nick;
     EditText write_text;
     CheckBox checkBox;
-    String email;
-    String word;
-
     TextView main_word;
+
+    //private long backBtnTime = 0;
 
     //ProgressBar progressBar;
     private static final String TAG = "Main_Writecontent";
@@ -88,7 +85,10 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
         navbar();
         set_nick();
+
     }
+
+
     public void navbar(){
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -121,7 +121,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
                 TextView user = (TextView)findViewById(R.id.user);
                 if (documentSnapshot.exists()) {
-                    String nick = documentSnapshot.getString("nickname");
+                    nick = documentSnapshot.getString("nickname");
                     user.setText(nick + " 님");
                 }
             }
@@ -145,12 +145,14 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
-        } else if (id == R.id.alarm) {
-            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "로그아웃 완료.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.setting) {
-            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
+            //Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Main_WriteContent.this, PreSettingsActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -162,15 +164,26 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     public void onPointerCaptureChanged(boolean hasCapture) {
     }
 
-    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
     @Override
     public void onBackPressed() {
+        //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+        //뒤로가기 두번 누르면 앱 종료
+//        long curTime = System.currentTimeMillis();
+//        long gapTime = curTime - backBtnTime;
+//        if(0 <= gapTime && 2000 >= gapTime){
+//            super.onBackPressed();
+//        } else {
+//            backBtnTime = curTime;
+//            Toast.makeText(Main_WriteContent.this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
     public void saveText(View view) {
