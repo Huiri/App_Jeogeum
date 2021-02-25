@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Set_Practice"></activity>
+        <activity android:name=".Practice" />
+        <activity android:name=".PreSettingsActivity" />
+        <activity android:name=".SettingActivity" />
         <activity android:name=".Showtext" />
-        <activity android:name=".Main_WriteContent"  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".Main_WriteContent"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MyWritingActivity" />
         <activity android:name=".YourWritingActivity" />
@@ -19,8 +25,10 @@
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

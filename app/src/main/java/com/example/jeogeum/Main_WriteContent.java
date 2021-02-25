@@ -23,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +38,7 @@ import java.util.Map;
 public class Main_WriteContent extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FirebaseFirestore db;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public static final String Text_KEY = "text";
     public static final String Lock_KEY = "lock";
@@ -146,7 +148,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
         } else if (id == R.id.logout) {
-            Toast.makeText(this, "로그아웃 완료.", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+            finish();
         } else if (id == R.id.setting) {
             //Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Main_WriteContent.this, PreSettingsActivity.class);

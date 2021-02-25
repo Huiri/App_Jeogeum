@@ -5,7 +5,8 @@
             android:key="change_nick"
             android:maxLines="1"
             android:singleLine="true"
-            android:title="필명 변경하기"/>
+            android:title="필명 변경하기"
+            android:summary=""/>
 
         <EditTextPreference
             android:key="change_password"
@@ -20,10 +21,9 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="계정 관리">
 
-    <Preference
-            android:key="logout"
-            android:title="로그아웃">
-        </Preference>
+        <SwitchPreference
+            android:key="auto"
+            android:title="자동 로그인"/>
 
         <Preference
             android:key="byebye"
@@ -43,5 +43,13 @@
                 android:action="android.intent.action.SENDTO"
                 android:data="mailto:20191524@daejin.ac.kr" />
         </Preference>
+        <Preference
+            android:summary="개발자의 장소에 놀러오세요"
+            android:title="개발자 정보" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/ai-lab-team/MTJeogeum"/>
+        </Preference>
+
     </PreferenceCategory>
 </PreferenceScreen>
