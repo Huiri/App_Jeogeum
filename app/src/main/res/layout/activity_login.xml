@@ -25,7 +25,7 @@
     <View
         android:id="@+id/view2"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:layout_marginTop="20dp"
         android:background="#58666666"
         app:layout_constraintTop_toBottomOf="@+id/Title"
@@ -62,17 +62,30 @@
         android:hint="비밀번호"
         android:inputType="textPassword" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/etPassWord"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="자동로그인"
+        android:textColor="#CAC9C9"
+        android:layout_marginTop="10dp"
+        android:id="@+id/check"
+        />
+
     <Button
         android:id="@+id/btnLogin"
         style="@style/FirebaseUI.Button"
         android:textColor="@color/white"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassWord" />
+        app:layout_constraintTop_toBottomOf="@+id/check" />
 
     <Button
         android:id="@+id/btnRegister"
