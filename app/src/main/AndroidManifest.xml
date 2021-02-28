@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Set_Practice"></activity>
+        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".Set_Practice" />
         <activity android:name=".Practice" />
         <activity android:name=".PreSettingsActivity" />
         <activity android:name=".SettingActivity" />

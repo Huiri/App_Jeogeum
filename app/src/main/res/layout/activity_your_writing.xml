@@ -17,7 +17,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,8 +42,34 @@
         android:textColor="@color/white"
         android:textSize="30dp"
         android:fontFamily="@font/songmyung_regular"
-        android:text="이런 글도 있어요"/>
+        android:text="이런 글도 있어요"/>-->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/white"
+        android:textSize="50dp"
+        android:fontFamily="@font/songmyung_regular"
+        android:text="너의 글"/>
 
+    <TextView
+        android:id="@+id/sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="70dp"
+        android:textColor="@color/white"
+        android:textSize="28dp"
+        android:fontFamily="@font/songmyung_regular"
+        android:text="이런 글도 있어요"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

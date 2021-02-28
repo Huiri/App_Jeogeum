@@ -25,11 +25,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="70dp"
         android:textColor="@color/white"
         android:textSize="40dp"
         android:fontFamily="@font/songmyung_regular"
-        android:text="나의 발자취"/>
+        android:text="나의 글"/>
 
     <Button
         android:layout_width="wrap_content"
