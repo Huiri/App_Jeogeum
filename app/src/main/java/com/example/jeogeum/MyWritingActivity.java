@@ -90,7 +90,7 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
                             for (String temp : array2) {
                                 myDataset[1][size++] = temp;
                             }
-                            myDataset[2][0] = "true";
+                            myDataset[3][0] = "true";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(mAdapter);
