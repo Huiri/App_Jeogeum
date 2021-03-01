@@ -8,12 +8,13 @@
             android:title="필명 변경하기"
             android:summary=""/>
 
-        <EditTextPreference
+        <Preference
             android:key="change_password"
             android:maxLines="1"
             android:singleLine="true"
             android:inputType="textPassword"
-            android:title="비밀번호 변경하기"/>
+            android:title="비밀번호 변경하기">
+        </Preference>
 
         <SwitchPreference
             android:key="alarm"
@@ -28,9 +29,6 @@
         <Preference
             android:key="byebye"
             android:title="계정 탈퇴">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="http://www.naver.com"/>
         </Preference>
 
     </PreferenceCategory>
