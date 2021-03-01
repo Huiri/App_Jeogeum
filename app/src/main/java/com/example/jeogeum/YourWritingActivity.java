@@ -52,6 +52,7 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
         // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
+                //.whereEqualTo("lock", Lock)  아직 디비 완성 안됨.
                 .whereEqualTo("nickname", "dogdd")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

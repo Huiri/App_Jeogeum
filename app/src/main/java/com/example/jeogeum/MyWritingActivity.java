@@ -37,8 +37,6 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_writing);
 
-
-
         Button close_btn = (Button) findViewById(R.id.close_btn);
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
