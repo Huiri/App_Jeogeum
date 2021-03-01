@@ -63,9 +63,9 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                             ArrayList<String> array2 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
                             // 들어갈 데이터가 글감
-                            String[] check = {"word", "text"};
+                            String[] check = {"word", "nickname", "text"};
                             int num = task.getResult().size();
-                            for(int i=0;i<2;i++) {
+                            for(int i=0;i<3;i++) {
                                 int j = 0;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (i == 0) {
@@ -86,7 +86,7 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                             for (String temp : array2) {
                                 myDataset[1][size++] = temp;
                             }
-                            myDataset[2][0] = "false";
+                            myDataset[3][0] = "false";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(mAdapter);

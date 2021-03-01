@@ -50,7 +50,7 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.textView_title.setText(mDataset[0][position]);
-        holder.textView_content.setText(mDataset[1][position]);
+        holder.textView_content.setText(mDataset[2][position]);
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
 
                 Context context = v.getContext();
                 Intent intent;
-                if(mDataset[2][0] == "true") {
+                if(mDataset[3][0] == "true") {
                     intent = new Intent(v.getContext(), MyDetailActivity.class);
                 }
                 else
