@@ -25,12 +25,14 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView textView_title;
+        public TextView textView_author;
         public TextView textView_content;
 
         public MyViewHolder(View v) {
             super(v);
             textView_title = v.findViewById(R.id.title);
-            textView_content = v.findViewById(R.id.sub);
+            textView_author = v.findViewById(R.id.author);
+            textView_content = v.findViewById(R.id.content);
         }
     }
 
@@ -50,6 +52,7 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.textView_title.setText(mDataset[0][position]);
+        holder.textView_author.setText(mDataset[1][position]);
         holder.textView_content.setText(mDataset[2][position]);
 
         holder.itemView.setTag(position);
@@ -57,6 +60,7 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
             @Override
             public void onClick(View v) {
                 String title = holder.textView_title.getText().toString();
+                String author = holder.textView_author.getText().toString();
                 Toast.makeText(v.getContext(), title, Toast.LENGTH_SHORT).show();
                 String content = holder.textView_content.getText().toString();
 
@@ -65,8 +69,10 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
                 if(mDataset[3][0] == "true") {
                     intent = new Intent(v.getContext(), MyDetailActivity.class);
                 }
-                else
+                else {
                     intent = new Intent(v.getContext(), YourDetailActivity.class);
+                    intent.putExtra("nickname", author);
+                }
 //                Intent intent = new Intent((Context) context, Showtext.class);
                 intent.putExtra("text", content);
                 intent.putExtra("word",title);
@@ -86,18 +92,21 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
-        private TextView sub;
+        private TextView author;
+        private TextView content;
 
         ItemViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
-            sub = itemView.findViewById(R.id.sub);
+            author = itemView.findViewById(R.id.author);
+            content = itemView.findViewById(R.id.content);
         }
 
         void onBind(WordData data) {
             title.setText(data.getWord());
-            sub.setText(data.getDate().toString());
+            author.setText(data.getWord());
+            content.setText(data.getDate().toString());
         }
     }
 

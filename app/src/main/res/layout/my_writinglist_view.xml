@@ -54,14 +54,14 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        >
+        android:gravity="center_vertical">
         <TextView
-            android:id="@+id/sub"
+            android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:maxLength="15"
-            android:layout_marginLeft="17dp"
+            android:layout_marginLeft="28dp"
             android:text="content"
             android:textColor="#8A8989"
             android:textSize="21sp" />

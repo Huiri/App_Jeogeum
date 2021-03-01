@@ -52,7 +52,7 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
         // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
-                .whereEqualTo("lock", Lock)
+                .whereEqualTo("nickname", "dogdd")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -61,6 +61,7 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                             // 배열은 사이즈가 고정되어 있으므로 ArrayList로 받고 배열로 변환
                             ArrayList<String> array1 = new ArrayList();
                             ArrayList<String> array2 = new ArrayList();
+                            ArrayList<String> array3 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
                             // 들어갈 데이터가 글감
                             String[] check = {"word", "nickname", "text"};
@@ -71,8 +72,11 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                                     if (i == 0) {
                                         array1.add(document.getData().get(check[i]).toString());
                                     }
-                                    else {
+                                    else if(i == 1) {
                                         array2.add(document.getData().get(check[i]).toString());
+                                    }
+                                    else {
+                                        array3.add(document.getData().get(check[i]).toString());
                                     }
                                 }
                             }
@@ -86,6 +90,11 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                             for (String temp : array2) {
                                 myDataset[1][size++] = temp;
                             }
+                            size = 0;
+                            for (String temp : array3) {
+                                myDataset[2][size++] = temp;
+                            }
+
                             myDataset[3][0] = "false";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
