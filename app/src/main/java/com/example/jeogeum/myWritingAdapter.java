@@ -61,7 +61,6 @@ public class myWritingAdapter extends RecyclerView.Adapter<myWritingAdapter.MyVi
             public void onClick(View v) {
                 String title = holder.textView_title.getText().toString();
                 String author = holder.textView_author.getText().toString();
-                Toast.makeText(v.getContext(), title, Toast.LENGTH_SHORT).show();
                 String content = holder.textView_content.getText().toString();
 
                 Context context = v.getContext();
