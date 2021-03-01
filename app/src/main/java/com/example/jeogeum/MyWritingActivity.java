@@ -88,7 +88,7 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
                             }
                             size = 0;
                             for (String temp : array2) {
-                                myDataset[1][size++] = temp;
+                                myDataset[2][size++] = temp;
                             }
                             myDataset[3][0] = "true";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);

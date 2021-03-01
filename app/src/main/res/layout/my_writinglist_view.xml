@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:gravity="bottom"
             android:textColor="#FFFFFF"
-            android:text="author"
+            android:text=""
             />
     </LinearLayout>
     <LinearLayout
