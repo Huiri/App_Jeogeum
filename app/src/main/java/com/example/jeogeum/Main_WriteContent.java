@@ -50,12 +50,12 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
     public static final String Text_KEY = "text";
     public static final String Lock_KEY = "lock";
-    public static final String Id_KEY = "id";
+    public static final String Nick_KEY = "nick";
     public static final String Date_KEY = "date";
     public static final String Word_KEY = "word";
     public static final String Used_KEY= "used";
 
-    String date, word, email;
+    String date, word, email, nick;
     EditText write_text;
     CheckBox checkBox;
     TextView main_word;
@@ -85,7 +85,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
         //기기에 설정된 날짜에 따라 나오는 값이 달라짐
         checkwordused();
-
+        find_nick();
         Button main_complete_btn = findViewById(R.id.main_complete_btn);
         main_complete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +211,18 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
     }
 
+    public void find_nick(){
+        DocumentReference UserRef = db.collection("user").document(email);
+
+        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    nick = documentSnapshot.getString("nickname");
+                }
+            }
+        });
+    }
     public void saveText(View view) {
         write_text = findViewById(R.id.write_text);
         String text = write_text.getText().toString();
@@ -223,7 +235,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Map<String, Object> post = new HashMap<>();
             post.put(Text_KEY, text);
             post.put(Lock_KEY, checkcheckbox());
-            post.put(Id_KEY, email);
+            post.put(Nick_KEY, nick);
             post.put(Date_KEY, currentTime);
             post.put(Word_KEY, word);
 
@@ -247,7 +259,6 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                             Log.w(TAG, "Error adding document", e);
                         }
                     });
-
         }
 
     }
