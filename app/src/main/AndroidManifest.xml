@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".YourDetailActivity"/>
-        <activity android:name=".MyDetailActivity" />
+        <activity android:name=".Fragment3"></activity>
+        <activity android:name=".StartActivity" />
+        <activity android:name=".Set_Practice" />
+        <activity android:name=".Practice" />
+        <activity android:name=".PreSettingsActivity" />
+        <activity android:name=".SettingActivity" />
         <activity android:name=".Showtext" />
         <activity
             android:name=".Main_WriteContent"

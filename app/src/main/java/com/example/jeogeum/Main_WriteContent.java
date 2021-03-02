@@ -1,14 +1,8 @@
 package com.example.jeogeum;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,16 +11,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,22 +43,24 @@ import java.util.Map;
 public class Main_WriteContent extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FirebaseFirestore db;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    SharedPreferences sharedPreferences;
+    String shared = "file";
 
     public static final String Text_KEY = "text";
     public static final String Lock_KEY = "lock";
-    public static final String Id_KEY = "id";
+    public static final String Nick_KEY = "nick";
     public static final String Date_KEY = "date";
     public static final String Word_KEY = "word";
     public static final String Used_KEY= "used";
 
-    String date;
-
+    String date, word, email, nick;
     EditText write_text;
     CheckBox checkBox;
-    String email;
-    String word;
-
     TextView main_word;
+
+    //private long backBtnTime = 0;
 
     //ProgressBar progressBar;
     private static final String TAG = "Main_Writecontent";
@@ -67,6 +74,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__write_content);
 
+        sharedPreferences = getSharedPreferences(shared, 0);
+
         email = getIntent().getStringExtra("email");
         db = FirebaseFirestore.getInstance();
         //progressBar = findViewById(R.id.progress);
@@ -76,7 +85,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
         //기기에 설정된 날짜에 따라 나오는 값이 달라짐
         checkwordused();
-
+        find_nick();
         Button main_complete_btn = findViewById(R.id.main_complete_btn);
         main_complete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +97,9 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
 
         navbar();
         set_nick();
+        //practice();
     }
+
     public void navbar(){
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -109,7 +120,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void set_nick(){
+    /*public void set_nick(){
 
         DocumentReference UserRef = db.collection("user").document(email);
 
@@ -126,7 +137,19 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                 }
             }
         });
+    }*/
+    private void set_nick(){
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.nav_header_layout, null , false);
+
+        TextView user = (TextView)findViewById(R.id.user);
+
+        String value = sharedPreferences.getString("nick", "");
+        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+        //user.setText((CharSequence) value);
+        //user.setText(value+ " 님");
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -163,14 +186,18 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
         } else if (id == R.id.words) {
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
-        } else if (id == R.id.alarm) {
-            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Main_WriteContent.this, StartActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "로그아웃 완료.", Toast.LENGTH_LONG).show();
+            firebaseAuth.signOut();
+            finish();
         } else if (id == R.id.setting) {
-            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
+            //Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Main_WriteContent.this, PreSettingsActivity.class);
+            intent.putExtra("email", email);
+            //intent.putExtra("nick", nick);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -182,17 +209,40 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     public void onPointerCaptureChanged(boolean hasCapture) {
     }
 
-    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
     @Override
     public void onBackPressed() {
+        //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+        //뒤로가기 두번 누르면 앱 종료
+//        long curTime = System.currentTimeMillis();
+//        long gapTime = curTime - backBtnTime;
+//        if(0 <= gapTime && 2000 >= gapTime){
+//            super.onBackPressed();
+//        } else {
+//            backBtnTime = curTime;
+//            Toast.makeText(Main_WriteContent.this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
+    public void find_nick(){
+        DocumentReference UserRef = db.collection("user").document(email);
+
+        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    nick = documentSnapshot.getString("nickname");
+                }
+            }
+        });
+    }
     public void saveText(View view) {
         write_text = findViewById(R.id.write_text);
         String text = write_text.getText().toString();
@@ -205,7 +255,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Map<String, Object> post = new HashMap<>();
             post.put(Text_KEY, text);
             post.put(Lock_KEY, checkcheckbox());
-            post.put(Id_KEY, email);
+            post.put(Nick_KEY, nick);
             post.put(Date_KEY, currentTime);
             post.put(Word_KEY, word);
 
@@ -229,7 +279,6 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                             Log.w(TAG, "Error adding document", e);
                         }
                     });
-
         }
 
     }
@@ -285,6 +334,23 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             check++;
         }
 
+    }
+    public void practice(){
+        db.collection("user")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Toast.makeText(Main_WriteContent.this, document.getId().toString() + document.getData().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     public void checkwordused(){
