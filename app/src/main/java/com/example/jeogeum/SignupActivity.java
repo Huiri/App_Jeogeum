@@ -111,7 +111,6 @@ public class SignupActivity extends AppCompatActivity {
                                     }
                                     else {
                                         // 회원가입 기능 구현
-                                        Log.d(TAG, "pass 55555555555");
                                         mAuth.createUserWithEmailAndPassword(stEmail, stPassword)
                                                 .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                                     @Override
@@ -141,31 +140,10 @@ public class SignupActivity extends AppCompatActivity {
                                                                             Log.w(TAG, "문서 생성 에러", e);
                                                                         }
                                                                     });
-/*
-                                                            // Db Write
-                                                            Map<String, Object> user = new HashMap<>();
-                                                            user.put("first", "Byeng");
-                                                            user.put("last", "seon");
-                                                            user.put("born", 1154);
-
-                                                            // 문서 추가
-                                                            db.collection("user")
-                                                                    .add(user)
-                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                                        @Override
-                                                                        public void onSuccess(DocumentReference documentReference) {
-                                                                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                                        }
-                                                                    })
-                                                                    .addOnFailureListener(new OnFailureListener() {
-                                                                        @Override
-                                                                        public void onFailure(@NonNull Exception e) {
-                                                                            Log.w(TAG, "Error adding document", e);
-                                                                        }
-                                                                    }); */
                                                             // 다음 화면으로 전환
                                                             Intent in = new Intent(SignupActivity.this, LoginActivity.class);
                                                             in.putExtra("email", stEmail);
+                                                            in.putExtra("previous", "login");
                                                             startActivity(in);
                                                         } else {
                                                             // 실패

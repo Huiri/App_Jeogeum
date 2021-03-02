@@ -26,16 +26,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class MyWritingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class YourWritingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
     private static final String TAG = "ShowMyList";
+    private boolean Lock = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_writing);
+        setContentView(R.layout.activity_your_writing);
 
         Button close_btn = (Button) findViewById(R.id.close_btn);
         close_btn.setOnClickListener(new View.OnClickListener() {
@@ -48,12 +49,11 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 사용자 이메일 확인
-        String id = getIntent().getStringExtra("email");
-        // 특정 id 속 post 출력
+        // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
-                .whereEqualTo("id", id)
+                //.whereEqualTo("lock", Lock)  아직 디비 완성 안됨.
+                .whereEqualTo("nickname", "dogdd")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -62,33 +62,41 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
                             // 배열은 사이즈가 고정되어 있으므로 ArrayList로 받고 배열로 변환
                             ArrayList<String> array1 = new ArrayList();
                             ArrayList<String> array2 = new ArrayList();
+                            ArrayList<String> array3 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
-                            // 들어갈 데이터가 글감, 내용 이므로 이렇게 만들어봄.   알고리즘 열심히 공부합시다. 난 몰라
-                            String[][] myDataset;
-                            String[] check = {"word", "text"};
+                            // 들어갈 데이터가 글감
+                            String[] check = {"word", "nickname", "text"};
                             int num = task.getResult().size();
-                            for(int i=0;i<2;i++) {
+                            for(int i=0;i<3;i++) {
                                 int j = 0;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (i == 0) {
                                         array1.add(document.getData().get(check[i]).toString());
                                     }
-                                    else {
+                                    else if(i == 1) {
                                         array2.add(document.getData().get(check[i]).toString());
+                                    }
+                                    else {
+                                        array3.add(document.getData().get(check[i]).toString());
                                     }
                                 }
                             }
                             // 배열 List크기 만큼 선언 후 값 넣기
-                            myDataset = new String[4][array1.size()];
+                            String[][] myDataset = new String[4][array1.size()];
                             int size = 0;
                             for (String temp : array1) {
                                 myDataset[0][size++] = temp;
                             }
                             size = 0;
                             for (String temp : array2) {
+                                myDataset[1][size++] = temp;
+                            }
+                            size = 0;
+                            for (String temp : array3) {
                                 myDataset[2][size++] = temp;
                             }
-                            myDataset[3][0] = "true";
+
+                            myDataset[3][0] = "false";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(mAdapter);
@@ -98,6 +106,7 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
                     }
                 });
         navbar();
+
     }
     public void navbar(){
         Toolbar toolbar = findViewById(R.id.writing_toolbar);
@@ -125,30 +134,29 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
         String email = getIntent().getStringExtra("email");
         // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
         String previous = getIntent().getStringExtra("previous");
-        String now = "my";
+        String now = "your";
         if (id == R.id.write) {
             if("main".equals(previous)) {
-                Log.d(TAG,"Finish Success main");
                 finish();
             }
             else {
-                Intent intent = new Intent(MyWritingActivity.this, Main_WriteContent.class);
+                Intent intent = new Intent(YourWritingActivity.this, Main_WriteContent.class);
                 intent.putExtra("email", email);
                 intent.putExtra("previous", now);
                 startActivity(intent);
             }
         } else if (id == R.id.my) {
-            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.your) {
-            if("your".equals(previous)) {
+            if("my".equals(previous)) {
                 finish();
             }
             else {
-                Intent intent = new Intent(MyWritingActivity.this, YourWritingActivity.class);
+                Intent intent = new Intent(YourWritingActivity.this, MyWritingActivity.class);
                 intent.putExtra("email", email);
                 intent.putExtra("previous", now);
                 startActivity(intent);
             }
+        } else if (id == R.id.your) {
+            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.words) {
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
@@ -175,5 +183,4 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
-
 }

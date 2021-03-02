@@ -44,7 +44,7 @@ public class Showtext extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showtext);
         Intent intent = getIntent();
-        String text = intent.getExtras().getString("write_text");
+        String text = intent.getExtras().getString("text");
 
         db = FirebaseFirestore.getInstance();
 
@@ -56,7 +56,7 @@ public class Showtext extends AppCompatActivity {
             }
         });
 
-        show.setMovementMethod(new ScrollingMovementMethod());
+        //show.setMovementMethod(new ScrollingMovementMethod());
         show = findViewById(R.id.show);
         show.setText(text);
 
