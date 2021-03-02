@@ -44,7 +44,7 @@ public class Showtext extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showtext);
         Intent intent = getIntent();
-        String text = intent.getExtras().getString("write_text");
+        String text = intent.getExtras().getString("text");
 
         db = FirebaseFirestore.getInstance();
 

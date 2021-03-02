@@ -4,12 +4,15 @@ package com.example.jeogeum.ui.login;
 import androidx.annotation.NonNull;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,11 +48,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
+    private boolean saveLoginData;
     EditText etId, etPassword;
+    CheckBox check;
+    SharedPreferences.Editor editor;
 
     FirebaseFirestore db;
     FirebaseDatabase database;
 
+    SharedPreferences login_info;
+    private String login = "login", id, pass;
 
     List<AuthUI.IdpConfig> providers = Arrays.asList(
             new AuthUI.IdpConfig.EmailBuilder().build(),
@@ -63,17 +71,29 @@ public class LoginActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // 입력 된 아이디, 비밀번호
         etId = findViewById(R.id.etId);
         etPassword = findViewById(R.id.etPassWord);
+        check = (CheckBox)findViewById(R.id.check);
+
+        login_info = getSharedPreferences(login, 0);
+        load();
+        editor= login_info.edit();
+
+
+
+
         // 로딩
         //progress = (ProgressBar)findViewById(R.id.progress);
         // 로그인 버튼
         Button btnLogin = findViewById(R.id.btnLogin);
-
+        if (saveLoginData) {
+            etId.setText(id);
+            etPassword.setText(pass);
+            check.setChecked(saveLoginData);
+        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         temp = result[i];
                                                     }
                                                     Log.d(TAG, " aasd "+temp);
+                                                    save();
                                                     // 다음 화면으로 전환
                                                     Intent in = new Intent(LoginActivity.this, Main_WriteContent.class);
                                                     in.putExtra("email", stEmail);
@@ -148,6 +169,37 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(in);
             }
         });
+//
+//        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                if(isChecked){
+//                    String ID = etId.getText().toString();
+//                    String PW = etPassword.getText().toString();
+//
+//                    editor.putString("id", ID);
+//                    editor.putString("pass", PW);
+//                    editor.putBoolean("Auto_Login_enabled", true);
+//                    editor.commit();
+//                }else{
+////			editor.remove("ID");
+////			editor.remove("PW");
+////			editor.remove("Auto_Login_enabled");
+//                    editor.clear();
+//                    editor.commit();
+//                }
+//            }
+//        });
+//        if(login_info.getBoolean("Auto_Login_enabled", false)){
+//
+//            etId.setText(login_info.getString("ID", ""));
+//
+//            etId.setText(login_info.getString("PW", ""));
+//
+//            check.setChecked(true);
+//
+//        }
     }
     @Override
     public void onStart() {
@@ -157,4 +209,35 @@ public class LoginActivity extends AppCompatActivity {
     private void startToast(String msg) {
         Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
     }
+
+    public Boolean checkcheck(){
+        check = findViewById(R.id.checkBox);
+
+        return check.isChecked();
+    }
+    // 설정값을 저장하는 함수
+    private void save() {
+        // SharedPreferences 객체만으론 저장 불가능 Editor 사용
+        SharedPreferences.Editor editor = login_info.edit();
+
+        // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
+        // 저장시킬 이름이 이미 존재하면 덮어씌움
+        editor.putBoolean("SAVE_LOGIN_DATA", check.isChecked());
+        editor.putString("id", etId.getText().toString().trim());
+        editor.putString("pass", etPassword.getText().toString().trim());
+
+        // apply, commit 을 안하면 변경된 내용이 저장되지 않음
+        editor.apply();
+    }
+
+    // 설정값을 불러오는 함수
+    private void load() {
+        // SharedPreferences 객체.get타입( 저장된 이름, 기본값 )
+        // 저장된 이름이 존재하지 않을 시 기본값
+        saveLoginData = login_info.getBoolean("SAVE_LOGIN_DATA", false);
+        id = login_info.getString("id", "");
+        pass = login_info.getString("pass", "");
+    }
+
+
 }

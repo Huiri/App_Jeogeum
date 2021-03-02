@@ -7,6 +7,7 @@
     tools:context=".MyWritingActivity"
     android:background="@drawable/night"
     android:id="@+id/drawer_layout">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
@@ -18,19 +19,32 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <TextView
-        android:id="@+id/sub"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/white"
+        android:textSize="50dp"
+        android:fontFamily="@font/songmyung_regular"
+        android:text="너의 글"/>
+
+    <TextView
+        android:id="@+id/sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="70dp"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="28dp"
         android:fontFamily="@font/songmyung_regular"
-        android:text="나의 글"/>
-
+        android:text="이런 글도 있어요"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,9 +54,11 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="10dp"
         android:text="X"
-        style="?android:attr/borderlessButtonStyle"
         android:textSize="30sp"
         android:id="@+id/close_btn"
+        style="?android:attr/borderlessButtonStyle"
         android:backgroundTint="#00FFFFFF"
         android:background="#00FFFFFF"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
