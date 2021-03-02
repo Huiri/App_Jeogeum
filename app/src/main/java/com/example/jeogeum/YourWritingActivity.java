@@ -105,28 +105,8 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                         }
                     }
                 });
-        navbar();
-
     }
-    public void navbar(){
-        Toolbar toolbar = findViewById(R.id.writing_toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolbar,
-                R.string.openNavDrawer,
-                R.string.closeNavDrawer
-        );
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -161,26 +141,13 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
-        } else if (id == R.id.alarm) {
+        } else if (id == R.id.logout) {
             Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.setting) {
             Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
             //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
             //startActivity(intent);
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 }
