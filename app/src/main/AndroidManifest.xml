@@ -17,6 +17,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MyWritingActivity" />
+        <activity android:name=".SearchText"/>
+        <activity android:name=".SearchShowText"/>
         <activity android:name=".YourWritingActivity" />
         <activity android:name=".MyDetailActivity" />
         <activity android:name=".YourDetailActivity" />
