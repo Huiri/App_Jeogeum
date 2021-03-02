@@ -16,6 +16,7 @@ public class MypageAdapter extends FragmentPagerAdapter {
         mData = new ArrayList<>();
         mData.add(new Fragment1());
         mData.add(new Fragment2());
+        mData.add(new Fragment3());
     }
 
     @NonNull
