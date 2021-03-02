@@ -155,15 +155,35 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
+        String previous = getIntent().getStringExtra("previous");
+        Log.d(TAG,"Previous : "+previous);
+        boolean bool = "my".equals(previous);
+        Log.d(TAG,"Previous : "+ bool);
+        // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
+        String now = "main";
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.my) {
-            Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
+            if("my".equals(previous)) {
+                Log.d(TAG,"Finish Success my");
+                finish();
+            }
+            else {
+                Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
         } else if (id == R.id.your) {
-            Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
-            startActivity(intent);
+            if("your".equals(previous)) {
+                finish();
+            }
+            else {
+                Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
         } else if (id == R.id.words) {
             Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Main_WriteContent.this, StartActivity.class);

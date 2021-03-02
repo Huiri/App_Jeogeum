@@ -1,24 +1,32 @@
 package com.example.jeogeum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class YourWritingActivity extends AppCompatActivity {
+public class YourWritingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -44,7 +52,8 @@ public class YourWritingActivity extends AppCompatActivity {
         // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
-                .whereEqualTo("lock", Lock)
+                //.whereEqualTo("lock", Lock)  아직 디비 완성 안됨.
+                .whereEqualTo("nickname", "dogdd")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -53,24 +62,27 @@ public class YourWritingActivity extends AppCompatActivity {
                             // 배열은 사이즈가 고정되어 있으므로 ArrayList로 받고 배열로 변환
                             ArrayList<String> array1 = new ArrayList();
                             ArrayList<String> array2 = new ArrayList();
+                            ArrayList<String> array3 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
                             // 들어갈 데이터가 글감
-                            String[][] myDataset;
-                            String[] check = {"word", "text"};
+                            String[] check = {"word", "nickname", "text"};
                             int num = task.getResult().size();
-                            for(int i=0;i<2;i++) {
+                            for(int i=0;i<3;i++) {
                                 int j = 0;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (i == 0) {
                                         array1.add(document.getData().get(check[i]).toString());
                                     }
-                                    else {
+                                    else if(i == 1) {
                                         array2.add(document.getData().get(check[i]).toString());
+                                    }
+                                    else {
+                                        array3.add(document.getData().get(check[i]).toString());
                                     }
                                 }
                             }
                             // 배열 List크기 만큼 선언 후 값 넣기
-                            myDataset = new String[3][array1.size()];
+                            String[][] myDataset = new String[4][array1.size()];
                             int size = 0;
                             for (String temp : array1) {
                                 myDataset[0][size++] = temp;
@@ -79,6 +91,12 @@ public class YourWritingActivity extends AppCompatActivity {
                             for (String temp : array2) {
                                 myDataset[1][size++] = temp;
                             }
+                            size = 0;
+                            for (String temp : array3) {
+                                myDataset[2][size++] = temp;
+                            }
+
+                            myDataset[3][0] = "false";
                             myWritingAdapter mAdapter = new myWritingAdapter(myDataset);
                             mAdapter.notifyDataSetChanged();
                             recyclerView.setAdapter(mAdapter);
@@ -87,6 +105,82 @@ public class YourWritingActivity extends AppCompatActivity {
                         }
                     }
                 });
+        navbar();
 
+    }
+    public void navbar(){
+        Toolbar toolbar = findViewById(R.id.writing_toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.openNavDrawer,
+                R.string.closeNavDrawer
+        );
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        String email = getIntent().getStringExtra("email");
+        // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
+        String previous = getIntent().getStringExtra("previous");
+        String now = "your";
+        if (id == R.id.write) {
+            if("main".equals(previous)) {
+                finish();
+            }
+            else {
+                Intent intent = new Intent(YourWritingActivity.this, Main_WriteContent.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
+        } else if (id == R.id.my) {
+            if("my".equals(previous)) {
+                finish();
+            }
+            else {
+                Intent intent = new Intent(YourWritingActivity.this, MyWritingActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("previous", now);
+                startActivity(intent);
+            }
+        } else if (id == R.id.your) {
+            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.words) {
+            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        } else if (id == R.id.alarm) {
+            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.setting) {
+            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
+            //startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    //뒤로가기 버튼 누르면 네비게이션 드로어 닫음
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

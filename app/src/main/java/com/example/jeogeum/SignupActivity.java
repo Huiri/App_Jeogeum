@@ -143,6 +143,7 @@ public class SignupActivity extends AppCompatActivity {
                                                             // 다음 화면으로 전환
                                                             Intent in = new Intent(SignupActivity.this, LoginActivity.class);
                                                             in.putExtra("email", stEmail);
+                                                            in.putExtra("previous", "login");
                                                             startActivity(in);
                                                         } else {
                                                             // 실패
