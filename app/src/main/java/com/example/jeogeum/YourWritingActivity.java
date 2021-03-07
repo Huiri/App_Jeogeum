@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class YourWritingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class YourWritingActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -106,32 +106,4 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                 });
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-        String email = getIntent().getStringExtra("email");
-        if (id == R.id.write) {
-            Intent intent = new Intent(YourWritingActivity.this, Main_WriteContent.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
-        } else if (id == R.id.my) {
-            Intent intent = new Intent(YourWritingActivity.this, MyWritingActivity.class);
-            intent.putExtra("email", email);
-            startActivity(intent);
-        } else if (id == R.id.your) {
-            Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.words) {
-            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
-        } else if (id == R.id.logout) {
-            Toast.makeText(this, "알림 off 선택됨.", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.setting) {
-            Toast.makeText(this, "설정으로 이동.", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(Main_WriteContent.this, ShowWordList.class);
-            //startActivity(intent);
-        }
-        return true;
-    }
 }
