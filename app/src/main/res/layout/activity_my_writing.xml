@@ -7,6 +7,7 @@
     tools:context=".MyWritingActivity"
     android:background="@drawable/night"
     android:id="@+id/drawer_layout">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
