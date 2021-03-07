@@ -8,8 +8,8 @@
                 android:id = "@+id/my" />
             <item android:title="너의 글"
                 android:id = "@+id/your" />
-            <item android:title="글감"
-                android:id = "@+id/words" />
+            <item android:title="적음 소개글"
+                android:id = "@+id/intro" />
     </group>
     <item android:title="">
         <menu>

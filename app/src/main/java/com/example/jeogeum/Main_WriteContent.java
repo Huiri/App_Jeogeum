@@ -49,8 +49,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    SharedPreferences sharedPreferences;
-    String shared = "file";
+    SharedPreferences sharedPreferences, word_save_preference;
+    String shared = "file", word_save = "word_save";
 
     public static final String Text_KEY = "text";
     public static final String Lock_KEY = "lock";
@@ -79,6 +79,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_main__write_content);
 
         sharedPreferences = getSharedPreferences(shared, 0);
+        word_save_preference = getSharedPreferences(word_save, 0);
 
         email = getIntent().getStringExtra("email");
         db = FirebaseFirestore.getInstance();
@@ -149,16 +150,13 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    /*public void set_nick(){
-
+    public void set_nick(){
         DocumentReference UserRef = db.collection("user").document(email);
-
         UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 inflater.inflate(R.layout.nav_header_layout, null , false);
-
                 TextView user = (TextView)findViewById(R.id.user);
                 if (documentSnapshot.exists()) {
                     String nick = documentSnapshot.getString("nickname");
@@ -166,8 +164,8 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                 }
             }
         });
-    }*/
-    private void set_nick(){
+    }
+    /*private void set_nick(){
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.nav_header_layout, null , false);
 
@@ -177,44 +175,22 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
         //user.setText((CharSequence) value);
         //user.setText(value+ " 님");
-    }
-
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        String previous = getIntent().getStringExtra("previous");
-        Log.d(TAG,"Previous : "+previous);
-        boolean bool = "my".equals(previous);
-        Log.d(TAG,"Previous : "+ bool);
-        // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
-        String now = "main";
         if (id == R.id.write) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.my) {
-            if("my".equals(previous)) {
-                Log.d(TAG,"Finish Success my");
-                finish();
-            }
-            else {
-                Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
-                intent.putExtra("email", email);
-                intent.putExtra("previous", now);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
         } else if (id == R.id.your) {
-            if("your".equals(previous)) {
-                finish();
-            }
-            else {
-                Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
-                intent.putExtra("email", email);
-                intent.putExtra("previous", now);
-                startActivity(intent);
-            }
-        } else if (id == R.id.words) {
-            Toast.makeText(this, "네번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.intro) {
             Intent intent = new Intent(Main_WriteContent.this, StartActivity.class);
             startActivity(intent);
         } else if (id == R.id.logout) {

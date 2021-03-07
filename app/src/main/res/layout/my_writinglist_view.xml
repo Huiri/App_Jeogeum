@@ -34,6 +34,7 @@
             android:layout_marginLeft="16dp"
             android:includeFontPadding="false"
             android:text="TITLE"
+            android:layout_marginTop="12dp"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
             android:textStyle="bold" />
@@ -60,9 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:layout_marginTop="5dp"
             android:maxLength="15"
-            android:layout_marginLeft="28dp"
+            android:layout_marginLeft="20dp"
             android:text="content"
             android:textColor="#8A8989"
             android:textSize="21sp" />

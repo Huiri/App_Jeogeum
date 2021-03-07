@@ -15,7 +15,7 @@
         android:layout_marginLeft="50dp"
         android:text="적음"
         android:textColor="@color/white"
-        android:textSize="80sp"
+        android:textSize="65sp"
         android:fontFamily="@font/songmyung_regular"
         android:layout_marginTop="90dp"/>
 
