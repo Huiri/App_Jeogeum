@@ -165,6 +165,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
         });
     }
+
     /*private void set_nick(){
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.nav_header_layout, null , false);
@@ -382,7 +383,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                         Log.d(TAG, "DocumentSnapshot successfully updated!");
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(new OnFailureListener() { 
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error updating document", e);
