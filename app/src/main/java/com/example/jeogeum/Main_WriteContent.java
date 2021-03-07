@@ -199,7 +199,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
             else {
                 Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
-                intent.putExtra("email", email);
+                intent.putExtra("nick", nick);
                 intent.putExtra("previous", now);
                 startActivity(intent);
             }
@@ -209,7 +209,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             }
             else {
                 Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
-                intent.putExtra("email", email);
+                intent.putExtra("nick", nick);
                 intent.putExtra("previous", now);
                 startActivity(intent);
             }

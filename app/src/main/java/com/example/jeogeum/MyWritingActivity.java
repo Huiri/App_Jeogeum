@@ -49,11 +49,11 @@ public class MyWritingActivity extends AppCompatActivity implements NavigationVi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 사용자 이메일 확인
-        String id = getIntent().getStringExtra("email");
+        String nick = getIntent().getStringExtra("nick");
         // 특정 id 속 post 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
-                .whereEqualTo("id", id)
+                .whereEqualTo("nick", nick)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -49,11 +49,12 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         // post 중 Lock 안 걸린 전체 출력
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
                 //.whereEqualTo("lock", Lock)  아직 디비 완성 안됨.
-                .whereEqualTo("nickname", "dogdd")
+                .whereEqualTo("lock", false)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -65,15 +66,14 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                             ArrayList<String> array3 = new ArrayList();
                             // 데이터 값 ArrayList에서 받기
                             // 들어갈 데이터가 글감
-                            String[] check = {"word", "nickname", "text"};
-                            int num = task.getResult().size();
+                            String[] check = {"word", "nick", "text"};
                             for(int i=0;i<3;i++) {
-                                int j = 0;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (i == 0) {
                                         array1.add(document.getData().get(check[i]).toString());
                                     }
                                     else if(i == 1) {
+                                        Log.d(TAG,"닉네임 :  "+document.getData().get(check[i]));
                                         array2.add(document.getData().get(check[i]).toString());
                                     }
                                     else {
