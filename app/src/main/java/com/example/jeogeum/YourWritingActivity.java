@@ -112,29 +112,14 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
 
         int id = item.getItemId();
         String email = getIntent().getStringExtra("email");
-        // 이전 액티비티로 가려고 한다면 intent가 아닌 finish로 되돌아가기 -> intent많이 안 쌓임
-        String previous = getIntent().getStringExtra("previous");
-        String now = "your";
         if (id == R.id.write) {
-            if("main".equals(previous)) {
-                finish();
-            }
-            else {
-                Intent intent = new Intent(YourWritingActivity.this, Main_WriteContent.class);
-                intent.putExtra("email", email);
-                intent.putExtra("previous", now);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(YourWritingActivity.this, Main_WriteContent.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
         } else if (id == R.id.my) {
-            if("my".equals(previous)) {
-                finish();
-            }
-            else {
-                Intent intent = new Intent(YourWritingActivity.this, MyWritingActivity.class);
-                intent.putExtra("email", email);
-                intent.putExtra("previous", now);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(YourWritingActivity.this, MyWritingActivity.class);
+            intent.putExtra("email", email);
+            startActivity(intent);
         } else if (id == R.id.your) {
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.words) {
