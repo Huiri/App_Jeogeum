@@ -186,10 +186,11 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
             Toast.makeText(this, "현재 페이지입니다.", Toast.LENGTH_LONG).show();
         } else if (id == R.id.my) {
             Intent intent = new Intent(Main_WriteContent.this, MyWritingActivity.class);
-            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
             startActivity(intent);
         } else if (id == R.id.your) {
             Intent intent = new Intent(Main_WriteContent.this, YourWritingActivity.class);
+            intent.putExtra("nick", nick);
             startActivity(intent);
         } else if (id == R.id.intro) {
             Intent intent = new Intent(Main_WriteContent.this, StartActivity.class);
