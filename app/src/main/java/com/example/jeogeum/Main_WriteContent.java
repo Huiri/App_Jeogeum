@@ -149,7 +149,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    /*public void set_nick(){
+    public void set_nick(){
 
         DocumentReference UserRef = db.collection("user").document(email);
 
@@ -166,19 +166,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                 }
             }
         });
-    }*/
-    private void set_nick(){
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.nav_header_layout, null , false);
-
-        TextView user = (TextView)findViewById(R.id.user);
-
-        String value = sharedPreferences.getString("nick", "");
-        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
-        //user.setText((CharSequence) value);
-        //user.setText(value+ " 님");
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
