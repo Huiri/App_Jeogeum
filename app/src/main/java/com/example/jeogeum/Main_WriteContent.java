@@ -406,7 +406,7 @@ public class Main_WriteContent extends AppCompatActivity implements NavigationVi
                         Log.d(TAG, "DocumentSnapshot successfully updated!");
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(new OnFailureListener() { 
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error updating document", e);
