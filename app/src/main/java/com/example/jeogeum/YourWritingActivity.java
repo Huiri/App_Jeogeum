@@ -73,7 +73,6 @@ public class YourWritingActivity extends AppCompatActivity implements Navigation
                                         array1.add(document.getData().get(check[i]).toString());
                                     }
                                     else if(i == 1) {
-                                        Log.d(TAG,"닉네임 :  "+document.getData().get(check[i]));
                                         array2.add(document.getData().get(check[i]).toString());
                                     }
                                     else {
