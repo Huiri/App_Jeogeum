@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,9 @@ public class SearchText extends AppCompatActivity {
     private RecyclerView.Adapter Adapter;
 
     ArrayList<String> searchText = new ArrayList<>();
+    ArrayList<String> nickname = new ArrayList<>();
+
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -47,6 +52,14 @@ public class SearchText extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        Button close_btn = (Button) findViewById(R.id.close_btn);
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         db.collection("post").whereEqualTo("word", instring).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -55,6 +68,7 @@ public class SearchText extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 searchText.add(document.get("text").toString());
+                                nickname.add(document.get("nick").toString());
                             }
 
                             if(searchText.size()==0){
@@ -63,7 +77,7 @@ public class SearchText extends AppCompatActivity {
                             else {
                                 searchcontent.setText("검색 결과 : " + instring);
                             }
-                            Adapter = new searchtextadaper(searchText, instring);
+                            Adapter = new searchtextadaper(searchText, instring, nickname);
                             Adapter.notifyDataSetChanged();
                             recyclerView.setAdapter(Adapter);
                         } else {
