@@ -25,7 +25,8 @@
             android:text="TITLE"
             android:textSize="30sp"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"/>
 
         <TextView
             android:id="@+id/sub1"
@@ -34,7 +35,8 @@
             android:includeFontPadding="false"
             android:text="content"
             android:textColor="#8A8989"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"/>
     </LinearLayout>
 
 </LinearLayout>
