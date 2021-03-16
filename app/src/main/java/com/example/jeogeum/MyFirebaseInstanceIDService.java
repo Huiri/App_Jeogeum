@@ -23,7 +23,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token){
         //기타 작업으로 활용
-
     }
 
 }

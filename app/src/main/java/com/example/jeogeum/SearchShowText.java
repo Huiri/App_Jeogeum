@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class SearchShowText extends AppCompatActivity  {
 
     TextView show;
+    TextView show2;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +22,9 @@ public class SearchShowText extends AppCompatActivity  {
         Intent intent = getIntent();
 
         String text = intent.getExtras().getString("searchText");
+        String title = intent.getExtras().getString("instring");
 
-        Button close_btn = (Button) findViewById(R.id.close_button);
+        Button close_btn = (Button) findViewById(R.id.close_btn);
 
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +35,9 @@ public class SearchShowText extends AppCompatActivity  {
 
         //show.setMovementMethod(new ScrollingMovementMethod());
         show = findViewById(R.id.showtext);
+        show2 = findViewById(R.id.title);
         show.setText(text);
+        show2.setText(title);
     }
 
 

@@ -17,19 +17,21 @@ import java.util.ArrayList;
 public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.ViewHolder> {
 
     ArrayList<String> searchText;
+    ArrayList<String> nickname;
     String instring;
 
 
-    searchtextadaper(ArrayList<String> searchText, String instring) {
+    searchtextadaper(ArrayList<String> searchText, String instring, ArrayList<String> nickname) {
         this.searchText = searchText;
         this.instring = instring;
+        this.nickname = nickname;
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView textView;
         public TextView textView2;
-
+        public TextView textView3;
 
         public ViewHolder(View view){
             super(view);
@@ -42,6 +44,7 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
                         Intent intent = new Intent(v.getContext(), SearchShowText.class);
 
                         intent.putExtra("searchText",searchText.get(pos));
+                        intent.putExtra("instring", instring);
 
                         v.getContext().startActivity(intent);
                     }
@@ -50,6 +53,7 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
 
             this.textView = view.findViewById(R.id.title1);
             this.textView2 = view.findViewById(R.id.sub1);
+            this.textView3 = view.findViewById(R.id.author);
         }
 
     }
@@ -68,6 +72,7 @@ public class searchtextadaper extends RecyclerView.Adapter<searchtextadaper.View
     public void onBindViewHolder(@NonNull searchtextadaper.ViewHolder holder, int position) {
         holder.textView.setText(instring);
         holder.textView2.setText(searchText.get(position));
+        holder.textView3.setText(nickname.get(position));
     }
 
     @Override
